@@ -4,7 +4,7 @@ import scala.language.postfixOps
 
 import android.app.Activity
 import android.os.Bundle
-import android.widget.{ LinearLayout, Button, TextView }
+import android.widget.{ LinearLayout, Button, TextView, EditText }
 import android.support.v7.app.AppCompatActivity
 import android.graphics.drawable.Animatable
 import macroid._
