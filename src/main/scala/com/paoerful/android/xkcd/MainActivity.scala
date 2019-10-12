@@ -25,11 +25,12 @@ class MainActivity
     setContentView {
       Ui.get {
         l[LinearLayout](
-          w[TextView]
-        )
+          w[EditText] <~ hint("Enter text here.") <~ padding(8 dp),
+          w[Button] <~ text("Submit") <~ On.click(w[TextView] <~ show),
         l[LinearLayout](
           w[Button] <~ text("Hello!") <~ padding(top = 8 dp, bottom = 8 dp),
           w[TextView]
+        )
         )
       }
     }
