@@ -20,6 +20,7 @@ object Libraries {
   // macroid libraries
   lazy val macroidRoot = macroidDep()
   lazy val macroidExtras = macroidDep("extras")
+  lazy val macroidViewable = macroidDep("viewable")
 
   // testing libraries
   lazy val specs2 = "org.specs2" %% "specs2-core" % Versions.specs2V % "test"

@@ -38,6 +38,7 @@ object ProjectPlugin extends AutoPlugin {
     libraryDependencies ++= Seq(
       aar(macroidRoot),
       aar(macroidExtras),
+      aar(macroidViewable),
       aar(androidSupportv4),
       aar(androidAppCompat),
       aar(androidCardView),
