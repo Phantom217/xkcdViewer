@@ -2,6 +2,10 @@
 
 <resources>
 
+    <!-- Main colors -->
     <color name="primary">#364550</color>
+
+    <!-- Menu -->
+    <color name="background_main_menu">#364550</color>
 
 </resources>
