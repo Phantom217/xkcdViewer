@@ -3,21 +3,31 @@ package com.paoerful.android.xkcd
 import scala.language.postfixOps
 
 import android.os.Bundle
-import android.widget.{ ListView, LinearLayout, TextView, Button }
+import android.widget.{ ListView, LinearLayout, TextView, Button, ImageView, RelativeLayout, FrameLayout }
 import android.view.ViewGroup.LayoutParams._
 import android.view.{ Gravity, View }
 import android.app.Activity
 import android.graphics.Color
+import android.support.v7.widget.{ Toolbar, CardView }
+import android.view.{ ContextThemeWrapper, View }
+import android.widget.ImageView.ScaleType
 
 import macroid._
 import macroid.FullDsl._
 import macroid.contrib._
 import macroid.viewable._
+import macroid.extras.FrameLayoutTweaks._
+import macroid.extras.LinearLayoutTweaks._
+import macroid.extras.ViewTweaks._
+import macroid.extras.RecyclerViewTweaks._
+import macroid.extras.TextViewTweaks._
+import macroid.extras.ResourcesExtras._
+import macroid.extras.ImageViewTweaks._
+import macroid.extras.TextViewTweaks._
+import macroid.extras.CardViewTweaks._
+import macroid.{ ActivityContextWrapper, Ui }
 
 import scala.concurrent.ExecutionContext.Implicits.global
-
-// simple case class to demonstrate listing things
-case class ColorString(text: String, color: Int)
 
 // define helpers in a mixable trait
 trait Styles {
@@ -27,65 +37,55 @@ trait Styles {
       (toast("I'm a caption") <~ gravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL) <~ fry) ~
       Ui(true)
     }
-
-  // allows to display cp;pred strings in a ListView
-  def colorStringListable(implicit ctx: ContextWrapper): Listable[ColorString, TextView] =
-    Listable[ColorString].tw(
-      w[TextView] <~ TextTweaks.typeface("sans-serif-condensed") <~ TextTweaks.medium
-    ) { colorString =>
-      text(colorString.text) + TextTweaks.color(colorString.color)
-    }
 }
 
-// mix in Contexts for Activity
+trait ToolbarLayout {
+
+  var toolbar: Option[Toolbar] = slot[Toolbar]
+
+  def toolbarLayout(children: Ui[View]*)(implicit ctx: ActivityContextWrapper): Ui[Toolbar] =
+    Ui {
+      var darkToolbar = getToolbarThemeDarkActionBar
+      children foreach (uiView => darkToolbar.addView(uiView.get))
+      toolbar = Some(darkToolbar)
+      darkToolbar
+    }
+
+  private def getToolbarThemeDarkActionBar(implicit context: ActivityContextWrapper) = {
+    val contextTheme = new ContextThemeWrapper(context.getOriginal, R.style.ThemeOverlay_AppCompat_Dark_ActionBar)
+    val darkToolbar = new Toolbar(contextTheme)
+    darkToolbar.setPopupTheme(R.style.ThemeOverlay_AppCompat_Light)
+    darkToolbar
+  }
+}
+
 class MainActivity extends Activity with Styles with Contexts[Activity] {
 
-  // prepare a variable to hold our text view
-  var cap = slot[TextView]
+  val altText: Option[TextView] = slot[TextView]
 
-  // some colored strings
-  var colorStrings = List(
-    ColorString("Coquelicot", Color.parseColor("#EC4908")),
-    ColorString("Smaragdine", Color.parseColor("#009874")),
-    ColorString("Glaucous", Color.parseColor("#6082B6"))
-  )
+  var cap: Option[TextView] = slot[TextView]
+
+  var image: Option[ImageView] = slot[ImageView]
 
   override def onCreate(savedInstanceState: Bundle) = {
     super.onCreate(savedInstanceState)
-    // this will be a linear layout
-    val view = l[LinearLayout](
-      // a text view
+
+    val view = l[CardView](
+      l[LinearLayout](
+        w[ImageView] <~
+          BgTweaks.res(R.drawable.chemistry_nobel) <~
+          lp[LinearLayout](MATCH_PARENT, WRAP_CONTENT) <~
+          ivScaleType(ScaleType.CENTER) <~
+          ivAdjustViewBounds(true)
+      ) <~
+        padding( left = 16 dp, right = 16 dp) <~
+        llGravity(Gravity.CENTER_VERTICAL),
       w[TextView] <~
-        // use our helper
-        caption("Hello?") <~
-        // assign to cap
-        wire(cap),
-
-      // a button
-      w[Button] <~
-        // set text
-        text("Click me!") <~
-        // set layout params (LinearLayout.LayoutParams will be used)
-        layoutParams[LinearLayout](MATCH_PARENT, WRAP_CONTENT) <~
-        // specify a background image
-        BgTweaks.res(R.drawable.btn_green_matte) <~
-        // set click handler
-        On.click {
-          // with <~~ we can apply snails like `delay`
-          // tweaks coming after them will wait till they finish
-          cap <~ text("Button clicked!") <~~ delay(1000) <~ text("Hello")
-        },
-
-      // a list view
-      w[ListView] <~
-        // use a listable to display the colored strings
-        colorStringListable.listAdapterTweak(colorStrings)
+        // caption("Test Frame") <~
+        wire(cap) <~
+        tvGravity(Gravity.TOP)
     ) <~
-      // match layout orientation to screen orientation
-      (portrait ? vertical | horizontal) <~ Transformer {
-        // set a padding of 4 dp for all inner views
-        case x: View => x <~ padding(all = 4 dp)
-      }
+      vElevation( 4.0f )
 
     setContentView(view.get)
   }
