@@ -37,6 +37,13 @@ trait Styles {
       (toast("I'm a caption") <~ gravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL) <~ fry) ~
       Ui(true)
     }
+
+  def comicStyle(implicit ctx: ContextWrapper): Tweak[ImageView] =
+    BgTweaks.res(R.drawable.chemistry_nobel) +
+    lp[LinearLayout](MATCH_PARENT, WRAP_CONTENT) +
+    ivScaleType(ScaleType.CENTER) +
+    ivAdjustViewBounds(true)
+
 }
 
 trait ToolbarLayout {
@@ -59,7 +66,9 @@ trait ToolbarLayout {
   }
 }
 
-class MainActivity extends Activity with Styles with Contexts[Activity] {
+class MainActivity extends Activity with Contexts[Activity] with Styles {
+
+  var comic: Option[ImageView] = slot[ImageView]
 
   val altText: Option[TextView] = slot[TextView]
 
@@ -72,16 +81,12 @@ class MainActivity extends Activity with Styles with Contexts[Activity] {
 
     val view = l[CardView](
       l[LinearLayout](
-        w[ImageView] <~
-          BgTweaks.res(R.drawable.chemistry_nobel) <~
-          lp[LinearLayout](MATCH_PARENT, WRAP_CONTENT) <~
-          ivScaleType(ScaleType.CENTER) <~
-          ivAdjustViewBounds(true)
+        w[ImageView] <~ wire(comic) <~ comicStyle
       ) <~
         padding( left = 16 dp, right = 16 dp) <~
         llGravity(Gravity.CENTER_VERTICAL),
       w[TextView] <~
-        // caption("Test Frame") <~
+        caption("Comic Title Here") <~
         wire(cap) <~
         tvGravity(Gravity.TOP)
     ) <~
