@@ -43,6 +43,8 @@ object ProjectPlugin extends AutoPlugin {
       aar(androidAppCompat),
       aar(androidCardView),
       aar(androidRecyclerview),
+      gigahorse,
+      playJson,
       androidTest,
       specs2,
       mockito
@@ -67,7 +69,15 @@ object ProjectPlugin extends AutoPlugin {
       "-keep class macroid.** { *; }" ::
       Nil,
     packagingOptions in Android := PackagingOptions(
-      excludes = Nil
+      excludes =
+        Seq("META-INF/LICENSE",
+          "META-INF/LICENSE.txt",
+          "META-INF/NOTICE",
+          "META-INF/NOTICE.txt",
+          "META-INF/maven/com.fasterxml.jackson.core/jackson-core/pom.properties",
+          "META-INF/maven/com.fasterxml.jackson.core/jackson-core/pom.xml",
+          "META-INF/services/com.fasterxml.jackson.core.JsonFactory",
+          "META-INF/services/com.fasterxml.jackson.databind.Module")
     )
   )
 }

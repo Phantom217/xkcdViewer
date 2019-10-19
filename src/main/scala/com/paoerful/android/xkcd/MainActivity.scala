@@ -3,13 +3,12 @@ package com.paoerful.android.xkcd
 import scala.language.postfixOps
 
 import android.os.Bundle
-import android.widget.{ ListView, LinearLayout, TextView, Button, ImageView, RelativeLayout, FrameLayout }
+import android.widget.{ LinearLayout, TextView, ImageView }
 import android.view.ViewGroup.LayoutParams._
-import android.view.{ Gravity, View }
 import android.app.Activity
 import android.graphics.Color
 import android.support.v7.widget.{ Toolbar, CardView }
-import android.view.{ ContextThemeWrapper, View }
+import android.view.{ ContextThemeWrapper, View, Gravity }
 import android.widget.ImageView.ScaleType
 
 import macroid._
