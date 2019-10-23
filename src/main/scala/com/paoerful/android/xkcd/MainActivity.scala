@@ -2,31 +2,22 @@ package com.paoerful.android.xkcd
 
 import scala.language.postfixOps
 
-import android.os.Bundle
-import android.widget.{ LinearLayout, TextView, ImageView }
-import android.view.ViewGroup.LayoutParams._
 import android.app.Activity
-import android.graphics.Color
+import android.os.Bundle
 import android.support.v7.widget.{ Toolbar, CardView }
+import android.view.ViewGroup.LayoutParams._
 import android.view.{ ContextThemeWrapper, View, Gravity }
 import android.widget.ImageView.ScaleType
-
+import android.widget.{ LinearLayout, TextView, ImageView }
 import macroid._
-import macroid.FullDsl._
 import macroid.contrib._
-import macroid.viewable._
-import macroid.extras.FrameLayoutTweaks._
-import macroid.extras.LinearLayoutTweaks._
-import macroid.extras.ViewTweaks._
-import macroid.extras.RecyclerViewTweaks._
-import macroid.extras.TextViewTweaks._
-import macroid.extras.ResourcesExtras._
 import macroid.extras.ImageViewTweaks._
+import macroid.extras.LinearLayoutTweaks._
 import macroid.extras.TextViewTweaks._
-import macroid.extras.CardViewTweaks._
+import macroid.extras.ViewTweaks._
+import macroid.FullDsl._
 import macroid.{ ActivityContextWrapper, Ui }
 
-import scala.concurrent.ExecutionContext.Implicits.global
 
 // define helpers in a mixable trait
 trait Styles {
