@@ -28,6 +28,13 @@ trait Styles {
       Ui(true)
     }
 
+  def altTextCaption(implicit ctx: ContextWrapper): Tweak[TextView] =
+    TextTweaks.large +
+    On.longClick {
+      (toast("Grab from JSON") <~ gravity(Gravity.CENTER | Gravity.CENTER_HORIZONTAL) <~ fry) ~
+      Ui(true)
+    }
+
   def comicStyle(implicit ctx: ContextWrapper): Tweak[ImageView] =
     BgTweaks.res(R.drawable.chemistry_nobel) +
     lp[LinearLayout](MATCH_PARENT, WRAP_CONTENT) +
