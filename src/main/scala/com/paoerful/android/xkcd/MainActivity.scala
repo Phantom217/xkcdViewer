@@ -35,6 +35,7 @@ trait Styles {
       Ui(true)
     }
 
+  /** Style tweaks for the comic image layout */
   def comicStyle(implicit ctx: ContextWrapper): Tweak[ImageView] =
     BgTweaks.res(R.drawable.chemistry_nobel) +
     lp[LinearLayout](MATCH_PARENT, WRAP_CONTENT) +
