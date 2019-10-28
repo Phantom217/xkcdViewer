@@ -7,5 +7,7 @@ object Versions {
   val macroidV = "2.0"
   val specs2V = "2.4.15"
   val mockitoV = "3.0-M2"
+  val gigahorseV = "0.3.1"
+  val playJsonV = "2.6.9"
 
 }

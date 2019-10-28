@@ -20,6 +20,11 @@ object Libraries {
   // macroid libraries
   lazy val macroidRoot = macroidDep()
   lazy val macroidExtras = macroidDep("extras")
+  lazy val macroidViewable = macroidDep("viewable")
+
+  // http libraries
+  lazy val gigahorse = "com.eed3si9n" %% "gigahorse-okhttp" % Versions.gigahorseV
+  lazy val playJson  = "com.typesafe.play" %% "play-json" % Versions.playJsonV
 
   // testing libraries
   lazy val specs2 = "org.specs2" %% "specs2-core" % Versions.specs2V % "test"
