@@ -67,11 +67,14 @@ class MainActivity extends Activity with Contexts[Activity] with Styles {
 
   var comic: Option[ImageView] = slot[ImageView]
 
-  val altText: Option[TextView] = slot[TextView]
+  var altText: Option[TextView] = slot[TextView]
 
   var cap: Option[TextView] = slot[TextView]
 
-  var image: Option[ImageView] = slot[ImageView]
+  // The comic's number, will be grabbed from the JSON
+  val comicNumber: Integer = 1312
+  // The comic title, will be grabbed from the JSON
+  val comicTitle: String = "Comic Title Here"
 
   override def onCreate(savedInstanceState: Bundle) = {
     super.onCreate(savedInstanceState)
@@ -83,8 +86,8 @@ class MainActivity extends Activity with Contexts[Activity] with Styles {
         padding( left = 16 dp, right = 16 dp) <~
         llGravity(Gravity.CENTER_VERTICAL),
       w[TextView] <~
-        caption("Comic Title Here") <~
         wire(cap) <~
+        caption(s"$comicNumber: $comicTitle") <~
         tvGravity(Gravity.TOP)
     ) <~
       vElevation( 4.0f )
