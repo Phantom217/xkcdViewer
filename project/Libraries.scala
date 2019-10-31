@@ -26,6 +26,9 @@ object Libraries {
   lazy val gigahorse = "com.eed3si9n" %% "gigahorse-okhttp" % Versions.gigahorseV
   lazy val playJson  = "com.typesafe.play" %% "play-json" % Versions.playJsonV
 
+  // Joda
+  lazy val joda = "org.joda" % "joda-convert" % Versions.jodaV
+
   // testing libraries
   lazy val specs2 = "org.specs2" %% "specs2-core" % Versions.specs2V % "test"
   lazy val mockito = "org.specs2" %% "specs2-mock" % Versions.mockitoV % "test"

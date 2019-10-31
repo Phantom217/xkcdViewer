@@ -45,6 +45,7 @@ object ProjectPlugin extends AutoPlugin {
       aar(androidRecyclerview),
       gigahorse,
       playJson,
+      joda,
       androidTest,
       specs2,
       mockito
@@ -63,11 +64,12 @@ object ProjectPlugin extends AutoPlugin {
     proguardCache in Android := Seq.empty,
     proguardScala in Android := true,
     useProguard in Android := true,
-    proguardOptions in Android ++=
-      "-ignorewarnings" ::
-      "-keep class scala.Dynamic" ::
-      "-keep class macroid.** { *; }" ::
-      Nil,
+    proguardOptions in Android ++= Seq(
+      "-ignorewarnings",
+      "-keep class scala.Dynamic",
+      "-keep class org.joda.** { *; }",
+      "-keep class macroid.** { *; }"
+    ),
     packagingOptions in Android := PackagingOptions(
       excludes =
         Seq("META-INF/LICENSE",

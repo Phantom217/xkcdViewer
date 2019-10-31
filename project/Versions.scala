@@ -9,5 +9,6 @@ object Versions {
   val mockitoV = "3.0-M2"
   val gigahorseV = "0.3.1"
   val playJsonV = "2.6.9"
+  val jodaV = "1.8.1"
 
 }
