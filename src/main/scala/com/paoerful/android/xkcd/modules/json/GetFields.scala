@@ -1,8 +1,8 @@
-package com.paoerful.android.modules.json
+package com.paoerful.android.xkcd.modules.json
 
 import play.api.libs.json._
 
-import com.paoerful.android.modules.net.FetchComicJson._
+import com.paoerful.android.xkcd.modules.net.FetchComicJson._
 
 /** Utility for extracting contents of specific keys within JSON objects */
 object GetKeys {
@@ -18,7 +18,7 @@ object GetKeys {
     * `validate[String]`, handles error in the pattern matching and returns
     * "Key not found", this should never happen unless key is mistyped.
     */
-  def getKey(key: String): String =
+  def getKey(json: JsValue, key: String): String =
     (json \ s"$key").validate[String] match {
       case JsSuccess(k, _) => k
       case e: JsError      => "Key not found"

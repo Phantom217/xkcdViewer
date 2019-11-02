@@ -1,4 +1,4 @@
-package com.paoerful.android.modules.net
+package com.paoerful.android.xkcd.modules.net
 
 import scala.concurrent._, duration._
 
