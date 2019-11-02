@@ -7,7 +7,6 @@ import com.paoerful.android.xkcd.modules.net.FetchComicJson._
 /** Utility for extracting contents of specific keys within JSON objects */
 object GetKeys {
 
-  val json = fetchJson(1312)
   /** Get specified key from a json object
     *
     * @param key the target key in a json object
@@ -23,5 +22,13 @@ object GetKeys {
       case JsSuccess(k, _) => k
       case e: JsError      => "Key not found"
     }
+
+  /** Get the number of the most recent comic */
+  def getLastComic: Int = {
+    (fetchJson() \ "num").validate[Int] match {
+      case JsSuccess(k, _) => k
+      case e: JsError      => -1
+    }
+  }
 
 }
