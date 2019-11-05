@@ -24,6 +24,25 @@ object FetchComicJson {
       Await.result(f, 120.seconds)
     }
 
+  def fetchTest(num: Int = -1) =
+    Gigahorse.withHttp(Gigahorse.config) { http =>
+      val url = s"https://www.xkcd.com/$num/info.0.json"
+      val r = Gigahorse.url(url).get
+      val f = http.run(r, parse)
+
+      // import scala.concurrent.ExecutionContext.Implicits.global
+      // for {
+      //   f <- http.run(r, parse)
+      //   title = (f \ "title").get
+      //   num = (f \ "num").get
+      //   img = (f \ "img").get
+      //   alt = (f \ "alt").get
+      // } yield ( title, num, img, alt )
+
+      Await.result(f, 120.seconds)
+
+    }
+
   /** Aliasing function to `parse` */
   private def parse = Gigahorse.asString andThen Json.parse
 }
