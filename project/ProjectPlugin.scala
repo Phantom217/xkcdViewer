@@ -68,7 +68,8 @@ object ProjectPlugin extends AutoPlugin {
       "-ignorewarnings",
       "-keep class scala.Dynamic",
       "-keep class org.joda.** { *; }",
-      "-keep class macroid.** { *; }"
+      "-keep class macroid.** { *; }",
+      "-keep class com.google.** { *; }"
     ),
     packagingOptions in Android := PackagingOptions(
       excludes =
